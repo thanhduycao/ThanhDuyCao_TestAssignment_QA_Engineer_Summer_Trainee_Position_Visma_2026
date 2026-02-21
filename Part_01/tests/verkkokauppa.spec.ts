@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('Search Nikon product and verify product name', async ({ page }) => {
     // Open the website
     await page.goto('/');
 
