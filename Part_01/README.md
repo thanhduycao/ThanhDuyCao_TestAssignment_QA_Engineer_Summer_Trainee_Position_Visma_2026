@@ -94,8 +94,3 @@ The tests can be run in GitHub Actions. See `.github/workflows/playwright.yml` f
 - Chromium
 - Firefox
 - WebKit (Safari)
-
-## Notes
-- Tests run in parallel by default (disabled in CI)
-- Failed tests are retried 2 times in CI
-- Traces are collected on first retry for debugging
