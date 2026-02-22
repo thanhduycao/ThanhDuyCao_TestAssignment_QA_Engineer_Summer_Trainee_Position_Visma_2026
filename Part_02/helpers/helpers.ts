@@ -2,10 +2,14 @@ import { Page } from '@playwright/test';
 
 
 export async function acceptCookies(page: Page) {
-  const cookieButton = page.locator('button:has-text("Hyv\u00e4ksy kaikki")');
-  if (await cookieButton.isVisible({ timeout: 3000 }).catch(() => false)) {
+  try {
+    const cookieButton = page.getByRole('button', { name: 'Hyväksy kaikki' });
+    // Wait for the button with a short timeout, if it doesn't appear, skip it
+    await cookieButton.waitFor({ state: 'visible', timeout: 5000 });
     await cookieButton.click();
-    await page.waitForTimeout(500);
+  } catch {
+    // Cookie banner did not appear, continue test
+    console.log('Cookie banner not found, skipping...');
   }
 }
 

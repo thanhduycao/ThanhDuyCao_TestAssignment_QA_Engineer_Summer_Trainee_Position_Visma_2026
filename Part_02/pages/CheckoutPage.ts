@@ -1,12 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
-
-export type ShippingAddress = {
-    name: string;
-    street: string;
-    postalCode: string;
-    city: string;
-    phone: string;
-};
+import { ShippingAddress } from '../types/types.ts';
 
 export class CheckoutPage {
     readonly page: Page;
@@ -26,7 +19,7 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.cartTotalPrice = page.getByText('Kokonaissumma');
+        this.cartTotalPrice = page.locator('[data-price="current"]').last();
         this.goToCheckoutLink = page.getByRole('link', { name: 'Siirry kassalle' });
         this.goToCheckoutButton = page.getByRole('button', { name: 'Siirry kassalle' });
         this.addNewAddressButton = page.getByRole('button', { name: 'Lisää uusi' });
@@ -58,10 +51,9 @@ export class CheckoutPage {
         await this.page.waitForLoadState('networkidle');
     }
 
-    
-    async selectFirstAvailableShippingMethod() {
+    async selectShippingMethod(shippingMethodName: string) {
         await this.chooseShippingButton.click();
-        // await this.page.getByText().click();
+        await this.page.getByText(shippingMethodName).click();
         await this.page.waitForLoadState('networkidle');
     }
 
@@ -78,5 +70,9 @@ export class CheckoutPage {
 
     async verifyCartTotalPrice(expectedPrice: string) {
         await expect(this.cartTotalPrice).toContainText(expectedPrice);
+    }
+
+    async verifyPaymentPageIsDisplayed() {
+        await expect(this.page).toHaveURL(/.*payment.*/i);
     }
 }

@@ -2,22 +2,14 @@ import { expect, Locator, Page } from '@playwright/test';
 
 export class ProductPage {
     readonly productTitle: Locator;
-    readonly productPriceValue: Promise<string | null>;
-    readonly productPriceDecimals: Promise<string | null>;;
-    readonly productPrice: Promise<string | null>;
+    productPriceValue: Promise<string | null> | null = null;
+    productPriceDecimals: Promise<string | null> | null = null;
+    productPrice: Promise<string | null> | null = null;
     readonly addToCartButton: Locator;
 
     constructor(private page: Page) {
         this.productTitle = page.getByRole('heading', {level: 1});
-        this.productPriceValue = page.locator('[data-price="current"]').getAttribute("data-integer");
-        this.productPriceDecimals = page.locator('[data-price="current"]').getAttribute("data-decimals");
-        this.productPrice = this.productPriceDecimals.then(decimals => {
-            if (decimals) {
-                return this.productPriceValue.then(value => value ? `${value}.${decimals}` : null);
-            }
-            return this.productPriceValue;
-        });
-        this.addToCartButton = page.locator('button').filter({ hasText: 'Lisää ostoskoriin' });
+        this.addToCartButton = page.getByRole('button', { name: 'Lisää ostoskoriin' }).first();
     }
 
     async verifyProductTitle(expectedTitle: string) {
@@ -31,7 +23,20 @@ export class ProductPage {
         expect(fullPrice).toBe(expectedPrice);
     }
 
-    async addToCart() {
+    async addProductToCart() {
         await this.addToCartButton.click();
+    }
+
+    async getProductPrice(): Promise<string | null> {
+        this.productPriceValue = this.page.locator('[data-price="current"]').first().getAttribute("data-integer");
+        this.productPriceDecimals = this.page.locator('[data-price="current"]').first().getAttribute("data-decimals");
+        
+        const decimals = await this.productPriceDecimals;
+        const value = await this.productPriceValue;
+        
+        if (decimals && value) {
+            return `${value},${decimals}`;
+        }
+        return value;
     }
 }

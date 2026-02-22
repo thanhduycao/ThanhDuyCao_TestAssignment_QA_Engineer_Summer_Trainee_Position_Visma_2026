@@ -5,15 +5,29 @@ This document describes 4 additional automated test scenarios for verkkokauppa.c
 
 ---
 
-## Test Scenario 1: Checkout Operations
+## Test Scenario 1: Checkout and Payment
 
-### Description
-This test verifies the checkout feature by:
-1. Search for a product
-2. Add the product to cart
-3. Proceed to checkout
-4. Perform multiple steps (checking basket, recipient, delivery method, payment method)
-5. Complete checkout order
+### Test Case 1: Search for a product and checkout with correct path
+**Preconditions:**
+
+- User is logged in
+- Cart is empty
+- Payment gateway is up
+
+**Steps:**
+1. Open the website and search for "Computer".
+2. Select the first product from the results and click on it for more details.
+3. Click "Add to cart" button.
+3. Click "Proceed to checkout" button.
+4. Verity the product information.
+5. Click "Proceed to checkout" button.
+6. Add new recipient.
+7. Click "Choose a delivery method" button.
+8. Select delivery method.
+9. Click "Choose a payment method" button.
+10. Select payment method.
+11. Click "Confirm payment".
+12. Verify the url link to be payment page.
 
 
 ### Why Automate This?
@@ -23,42 +37,87 @@ This test cover the critical user journey of verkkokauppa.com ecommerce website 
 
 ## Test Scenario 2: Shopping Cart Operations
 
-### Description
-This test validates core shopping cart functionality:
-- Adding single and multiple products to the cart
-- Updating product quantities in the cart
-- Removing items from the cart
-- Verifying cart totals calculate correctly
+### Test Case 1: Add a product to cart
+
+**Preconditions:**
+
+- User is logged in
+- On the product detail page
+
+**Steps:**
+
+1. Click "Add to cart"
+2. Observe shopping basket
+
+**Expected Result:**
+
+- Shopping basket increments to "1"
+- Product added successfully
+
+---
+
+### Test Case 2: Remove product from cart
+
+**Preconditions:**
+
+- User is logged in
+- At least 1 item in cart
+
+**Steps:**
+
+1. Navigate to cart page
+2. Click "Remove" on an item
+3. Observe shopping basket
+
+**Expected Result:**
+
+- Product remove from cart
+- Cart badge decrements
+- If cart empty, "Your car is empty" message shown
+
 
 ### Why Automate This?
 This test cover the features that can potentially prone to error in the website. By automting this with multiple test cases like add one item to cart, add multiple item to cart, or add and delete item, we can make sure this function is correct.
 
 ---
 
-## Test Scenario 3: Product Category Navigation & Filtering
+## Test Scenario 3: Account Signup
+### Test Case 1: Create an account with valid information
 
-### Description
-This test covers product discovery and filtering:
-- Search for a product
-- Navigating through category hierarchy (main categories → subcategories)
-- Verifying correct products load for each category
-- Applying filters (price range, brand, availability)
-- Combining multiple filters
-- Verify correct products count after filtering
+**Steps:**
 
-### Why Automate This?
-This test cover the features that need intensive repetitive checking of the expectation filter. 
+1. Navigate to the signup page.
+2. Fill in the valid email address.
+3. Fill in the valid password.
+4. Fill in first name.
+5. Fill in last name.
+6. Fill in valid mobile number.
+7. Choose Language of business: "English".
+8. Check the Terms and Conditions and Privacy Policy checkbox.
+9. Verify that the sign up is success.
 
----
+**Expected Result:**
 
-## Test Scenario 4: Account Signup
+- The account is created successfully
+- Redirect to account customer page
 
+### Test Case 2: Create an account with invalid information
 
-### Description
-This test covers account signup procedure:
-- Go to create account
-- Fill in the information
-- Send information
+**Steps:**
+
+1. Navigate to the signup page.
+2. Fill in the invalid email address.
+3. Fill in the invalid password.
+4. Fill in first name.
+5. Fill in last name.
+6. Fill in valid mobile number.
+7. Choose Language of business: "English".
+8. Check the Terms and Conditions and Privacy Policy checkbox.
+
+**Expected Result:**
+
+- The account is created successfully
+- Redirect to account customer page
 
 ### Why Automate This?
 This test covers the critical user journey as every user need to sign up before they can start to have the account for later use and it has form filling. Moreover, for form filling, we can have multiple scenario that we can have to test for the input and therefore, automated it with be faster and reduce time comparing to manual input different kinds of scenario (the number of test will depend on the number of input field permutation).
