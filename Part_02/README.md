@@ -51,7 +51,9 @@ npx playwright test
 
 Run specific test file:
 ```bash
-npx playwright test tests/verkkokauppa-additional.spec.ts
+npx playwright test tests/verkkokauppa-cart.spec.ts
+npx playwright test tests/verkkokauppa-checkout.spec.ts
+npx playwright test tests/verkkokauppa-signup.spec.ts
 ```
 
 Run tests in headed mode (see browser):
