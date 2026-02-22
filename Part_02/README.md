@@ -2,18 +2,6 @@
 
 This folder contains 3 additional automated test scenarios for verkkokauppa.com e-commerce site.
 
-## 📁 File Structure
-
-```
-Part_02/
-├── tests/
-│   ├── verkkokauppa-additional.spec.ts   # 3 automated test scenarios
-│   └── example.spec.ts                    # Playwright demo (can be removed)
-├── TEST_SCENARIOS.md                      # Detailed documentation of each scenario
-├── playwright.config.ts                   # Playwright configuration
-├── package.json                           # Dependencies
-└── README.md                              # This file
-```
 
 ## 📝 Test Details
 
