@@ -49,11 +49,6 @@ Run tests in headed mode (see browser):
 npx playwright test --headed
 ```
 
-Run specific test scenario:
-```bash
-npx playwright test -g "Product Search"
-```
-
 Run with UI mode (interactive):
 ```bash
 npx playwright test --ui
