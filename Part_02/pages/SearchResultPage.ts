@@ -9,11 +9,9 @@ export class SearchResultPage {
 		this.addToCartButton = page.locator('button').filter({ hasText: 'Lisää ostoskoriin' });
 	}
 
-	async addFirstProductToCart() {
-		const firstProduct = this.productCards.nth(1).locator('a');
-		await firstProduct.click();
+	async clickNthProduct(n: number) {
+		const productLink = this.productCards.nth(n).locator('a');
+		await productLink.click();
 		await this.page.waitForLoadState('networkidle');
-		await this.addToCartButton.click();
-		await this.page.waitForTimeout(1000);
 	}
 }
