@@ -36,8 +36,6 @@ test.describe('verkkokauppa.com - Checkout Process', () => {
     await searchResultPage.clickNthProduct(data.productIndex);
     await productPage.addProductToCart();
 
-    const productPrice = await productPage.getProductPrice();
-
     // 3. Proceed to checkout
     await checkoutPage.proceedToCheckout();
 
