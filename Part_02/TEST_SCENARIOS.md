@@ -1,7 +1,7 @@
 # Part 02: Additional Test Scenarios for verkkokauppa.com
 
 ## Overview
-This document describes 4 additional automated test scenarios for verkkokauppa.com, explaining what each test does and why automation provides value.
+This document describes 3 additional automated test scenarios for verkkokauppa.com, explaining what each test does and why automation provides value.
 
 ---
 
@@ -77,7 +77,7 @@ This test cover the critical user journey of verkkokauppa.com ecommerce website 
 
 
 ### Why Automate This?
-This test cover the features that can potentially prone to error in the website. By automting this with multiple test cases like add one item to cart, add multiple item to cart, or add and delete item, we can make sure this function is correct.
+This test cover the features that can potentially prone to error in the website. By automting this with multiple test cases like add one item to cart, delete item, we can make sure this function is correct.
 
 ---
 
@@ -123,9 +123,3 @@ This test cover the features that can potentially prone to error in the website.
 This test covers the critical user journey as every user need to sign up before they can start to have the account for later use and it has form filling. Moreover, for form filling, we can have multiple scenario that we can have to test for the input and therefore, automated it with be faster and reduce time comparing to manual input different kinds of scenario (the number of test will depend on the number of input field permutation).
 
 ---
-
-## Implementation Notes
-- All tests use Playwright with TypeScript
-- Tests are data-driven where possible to maximize coverage
-- Each test includes proper assertions and error handling
-- Tests are designed to be maintainable and readable
