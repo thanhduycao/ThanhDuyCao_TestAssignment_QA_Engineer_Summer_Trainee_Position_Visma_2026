@@ -56,28 +56,31 @@ This test cover the critical user journey of verkkokauppa.com ecommerce website 
 
 ---
 
-### Test Case 2: Remove product from cart
+### Test Case 2: Add a product to cart and increase the quantity by 1
 
 **Preconditions:**
 
 - User is logged in
-- At least 1 item in cart
+- On the product detail page
 
 **Steps:**
 
-1. Navigate to cart page
-2. Click "Remove" on an item
-3. Observe shopping basket
+1. Click "Add to cart"
+2. Click "Shopping basket"
+3. Click the "Add quantity" button
+4. Check the updated price
 
 **Expected Result:**
 
-- Product remove from cart
-- Cart badge decrements
-- If cart empty, "Your car is empty" message shown
+- The quantity of product is updated
+- Product added successfully
+- The price is updated
+
+---
 
 
 ### Why Automate This?
-This test cover the features that can potentially prone to error in the website. By automting this with multiple test cases like add one item to cart, add multiple item to cart, or add and delete item, we can make sure this function is correct.
+This test covers features on the website that are potentially prone to errors. It has been observed that when increasing the number of products in the cart, the total price is sometimes not updated correctly. By automating multiple test cases—such as adding a single item to the cart, adding multiple items, and adding then removing items—we can ensure that this functionality works as expected and that the total price updates accurately.
 
 ---
 
