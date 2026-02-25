@@ -1,6 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { ShippingAddress } from '../types/types.ts';
-import { parseFinnishPrice } from '../helpers/helpers';
 
 export class CheckoutPage {
     readonly page: Page;
