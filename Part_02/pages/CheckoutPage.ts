@@ -19,7 +19,6 @@ export class CheckoutPage {
 
     constructor(page: Page) {
         this.page = page;
-        this.cartTotalPrice = page.locator('[data-price="current"]').last();
         this.goToCheckoutLink = page.getByRole('link', { name: 'Siirry kassalle' });
         this.goToCheckoutButton = page.getByRole('button', { name: 'Siirry kassalle' });
         this.addNewAddressButton = page.getByRole('button', { name: 'Lisää uusi' });
@@ -66,10 +65,6 @@ export class CheckoutPage {
     async confirmOrder() {
         await this.confirmOrderButton.click();
         await this.page.waitForLoadState('networkidle');
-    }
-
-    async verifyCartTotalPrice(expectedPrice: string) {
-        await expect(this.cartTotalPrice).toContainText(expectedPrice);
     }
 
     async verifyPaymentPageIsDisplayed() {

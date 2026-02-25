@@ -3,6 +3,7 @@ import { test } from '../fixtures/fixtures';
 import dotenv from 'dotenv';
 import path from 'path';
 import { acceptCookies, fillAndLogin } from '../helpers/helpers';
+import { PRODUCT_LINKS } from '../test-data/product-links.data';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -23,7 +24,7 @@ test.describe('verkkokauppa.com - Shopping Cart Operations', () => {
 
   test('Add product to cart', async ({ page, productPage }) => {
     // 1. Go to the product page
-    await page.goto('/fi/product/988465/ASUS-ROG-Zephyrus-G14-GA403WP-QS005W-14-pelikannettava');
+    await page.goto(PRODUCT_LINKS.ASUS_ROG_ZEPHYRUS);
 
     const shoppingBasketCount = page.getByRole('button', { name: 'Tarkastele ostoskoria' }).innerText();
     const initialCount = parseInt(await shoppingBasketCount) || 0;
@@ -35,15 +36,44 @@ test.describe('verkkokauppa.com - Shopping Cart Operations', () => {
     await expect(page.getByRole('button', { name: 'Tarkastele ostoskoria' })).toHaveText((initialCount + 1).toString());
   });
 
-  test('Remove product from cart', async ({ page }) => {
-    // 1. Go to the cart page
-    await page.goto('/fi/cart');
+  test('Add a product to cart and increase the quantity by 1', async ({ page, productPage, checkoutPage }) => {
+    // 1. Go to the product page
+    await page.goto(PRODUCT_LINKS.ASUS_ROG_ZEPHYRUS);
 
-    // 2. Click "Remove" on an item
-    await page.getByRole('button', { name: 'Poista tuote' }).click();
+    const shoppingBasketCount = page.getByRole('button', { name: 'Tarkastele ostoskoria' }).innerText();
+    const initialCount = parseInt(await shoppingBasketCount) || 0;
 
-    // 3. Verify the cart is empty
-    await expect(page.getByText('Tuote poistettu ostoskorista')).toBeVisible();
+    // 2. Add the product to the cart
+    await productPage.addProductToCart();
+    const productPrice = await productPage.getProductPrice();
+
+    // 3. Go to the cart
+    await page.getByRole('button', { name: 'Tarkastele ostoskoria' }).click();
+    await page.waitForTimeout(3000);
+
+    // 4. Increase the quantity by 1
+    await page.getByRole('button', { name: 'Lisää kappalemäärää' }).click();
+
+    await page.waitForTimeout(3000);
+
+    // 5. Verify the total price is updated correctly
+
+    const count = await page.getByLabel('Syötä kappalemäärä').inputValue();
+
+    const expectedTotalPrice = (parseFloat(productPrice!) * parseFloat(count)).toFixed(2);
+
+
+    const actualTotalPrice = await page.locator('[data-price="current"]').last().innerText();
+
+    const integerPart = await page.locator('[data-price="current"]').last().getAttribute('value');
+    const decimalPart = await page.locator('[data-price="current"]').last().getAttribute('data-decimals');
+
+    if (!integerPart || decimalPart === null) {
+        throw new Error('Could not read price attributes from element');
+    }
+
+    const actualTotal = parseFloat(`${integerPart}.${decimalPart}`).toFixed(2);
+
+    expect(actualTotal).toBe(expectedTotalPrice);
   });
-
 });

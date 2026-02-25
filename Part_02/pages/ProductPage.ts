@@ -35,7 +35,7 @@ export class ProductPage {
         const value = await this.productPriceValue;
         
         if (decimals && value) {
-            return `${value},${decimals}`;
+            return `${value}.${decimals}`;
         }
         return value;
     }
