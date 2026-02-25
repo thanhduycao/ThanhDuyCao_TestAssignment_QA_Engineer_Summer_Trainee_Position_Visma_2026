@@ -11,7 +11,6 @@ BASE_URL = "https://www.verkkokauppa.com/"
 class Simulator(webdriver.Chrome):
     def __init__(self):
         chrome_options = Options()
-        # chrome_options.add_argument("--headless")
         chrome_options.add_argument("--log-level=3")
         super().__init__(options=chrome_options)
 
@@ -29,16 +28,14 @@ class Simulator(webdriver.Chrome):
             wait = WebDriverWait(self, 5)
             host = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "#usercentrics-cmp-ui")))
 
-            # Get its open shadow root (Selenium 4+)
             shadow_root = host.shadow_root
 
-            # Click "Hyväksy kaikki" (Accept all)
             accept_btn = WebDriverWait(shadow_root, 10).until(
                 lambda sr: sr.find_element(By.CSS_SELECTOR, "button#accept, button[data-action-type='accept'], button.uc-accept-button")
             )
             accept_btn.click()
         except Exception:
-            pass  # No cookie banner, continue
+            pass 
 
     def crawl(self):
         js_file_path = "script/html_extractor.js"

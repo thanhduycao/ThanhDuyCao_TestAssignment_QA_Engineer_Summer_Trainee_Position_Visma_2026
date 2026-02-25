@@ -2,18 +2,6 @@
 
 This folder contains 3 additional automated test scenarios for verkkokauppa.com e-commerce site.
 
-## 📁 File Structure
-
-```
-Part_02/
-├── tests/
-│   ├── verkkokauppa-additional.spec.ts   # 3 automated test scenarios
-│   └── example.spec.ts                    # Playwright demo (can be removed)
-├── TEST_SCENARIOS.md                      # Detailed documentation of each scenario
-├── playwright.config.ts                   # Playwright configuration
-├── package.json                           # Dependencies
-└── README.md                              # This file
-```
 
 ## 📝 Test Details
 
@@ -51,17 +39,14 @@ npx playwright test
 
 Run specific test file:
 ```bash
-npx playwright test tests/verkkokauppa-additional.spec.ts
+npx playwright test tests/verkkokauppa-cart.spec.ts
+npx playwright test tests/verkkokauppa-checkout.spec.ts
+npx playwright test tests/verkkokauppa-signup.spec.ts
 ```
 
 Run tests in headed mode (see browser):
 ```bash
 npx playwright test --headed
-```
-
-Run specific test scenario:
-```bash
-npx playwright test -g "Product Search"
 ```
 
 Run with UI mode (interactive):
