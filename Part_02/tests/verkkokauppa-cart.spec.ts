@@ -3,6 +3,7 @@ import { test } from '../fixtures/fixtures';
 import dotenv from 'dotenv';
 import path from 'path';
 import { acceptCookies, fillAndLogin } from '../helpers/helpers';
+import { PRODUCT_LINKS } from '../test-data/product-links.data';
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -23,7 +24,7 @@ test.describe('verkkokauppa.com - Shopping Cart Operations', () => {
 
   test('Add product to cart', async ({ page, productPage }) => {
     // 1. Go to the product page
-    await page.goto('/fi/product/988465/ASUS-ROG-Zephyrus-G14-GA403WP-QS005W-14-pelikannettava');
+    await page.goto(PRODUCT_LINKS.ASUS_ROG_ZEPHYRUS);
 
     const shoppingBasketCount = page.getByRole('button', { name: 'Tarkastele ostoskoria' }).innerText();
     const initialCount = parseInt(await shoppingBasketCount) || 0;
@@ -37,7 +38,7 @@ test.describe('verkkokauppa.com - Shopping Cart Operations', () => {
 
   test('Add a product to cart and increase the quantity by 1', async ({ page, productPage, checkoutPage }) => {
     // 1. Go to the product page
-    await page.goto('/fi/product/988465/ASUS-ROG-Zephyrus-G14-GA403WP-QS005W-14-pelikannettava');
+    await page.goto(PRODUCT_LINKS.ASUS_ROG_ZEPHYRUS);
 
     const shoppingBasketCount = page.getByRole('button', { name: 'Tarkastele ostoskoria' }).innerText();
     const initialCount = parseInt(await shoppingBasketCount) || 0;
